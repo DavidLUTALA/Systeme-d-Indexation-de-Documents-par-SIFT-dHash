@@ -23,7 +23,7 @@ Ce système permet de :
 
 ## 🛠️ Fonctionnalités principales
 
-1. **Téléversement d’une vidéo de requête** (.mp4)
+1. **Téléversement d’une vidéo de requête.** (.mp4)
 2. **Extraction automatique de la frame centrale**
 3. **Calcul du hash dHash de la frame et affichage des keypoints SIFT**
 4. **Filtrage des 30 images les plus proches via comparaison des hash**
