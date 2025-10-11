@@ -49,9 +49,9 @@ def load_image_database(image_folder="images"):
 
 def main():
     st.set_page_config(page_title="Indexation et Localisation de Texte", layout="wide")
-    st.title("📄🔍 Système d'Indexation avec SIFT + dHash")
+    st.title("Système d'Indexation avec SIFT + dHash")
 
-    st.sidebar.header("🎞️ Téléversez une vidéo de requête")
+    st.sidebar.header("Téléversez une vidéo de requête")
     uploaded_video = st.sidebar.file_uploader("Vidéo .mp4", type=["mp4"])
 
     if uploaded_video:
@@ -65,10 +65,10 @@ def main():
         cap.release()
 
         if not ret:
-            st.error("❌ Impossible d'extraire la frame de la vidéo.")
+            st.error("Impossible d'extraire la frame de la vidéo.")
             return
 
-        st.subheader("📸 Frame extraite")
+        st.subheader("Frame extraite")
         kp_frame, des_frame = extract_sift_descriptors(frame)
         frame_hash = compute_image_hash(frame)
 
@@ -87,7 +87,7 @@ def main():
         top_k = 30
         top_k_hashes = sorted(hash_distances.items(), key=lambda x: x[1])[:top_k]
 
-        st.subheader("🔎 Top 30 par hachage dHash")
+        st.subheader("Top 30 par hachage dHash")
         for i, (name, dist) in enumerate(top_k_hashes, 1):
             st.write(f"{i:02d}. {name} – Distance : {dist} – Hash : {base_descripteurs[name]['hash']}")
 
@@ -102,12 +102,12 @@ def main():
         best_match = max(scores, key=scores.get)
         nb_best_matches = scores[best_match]
 
-        st.success(f"📄 Document reconnu : {best_match} avec {nb_best_matches} bons matchs SIFT")
+        st.success(f"Document reconnu : {best_match} avec {nb_best_matches} bons matchs SIFT")
         best_img = base_descripteurs[best_match]["image"]
         kp_img = base_descripteurs[best_match]["keypoints"]
         des_img = base_descripteurs[best_match]["descriptors"]
 
-        st.image(cv2.cvtColor(best_img, cv2.COLOR_BGR2RGB), caption="📑 Image du document associé")
+        st.image(cv2.cvtColor(best_img, cv2.COLOR_BGR2RGB), caption="Image du document associé")
 
         matches = bf.knnMatch(des_frame, des_img, k=2)
         good_matches = [m for m, n in matches if m.distance < 0.75 * n.distance]
@@ -125,10 +125,11 @@ def main():
             img_localised = best_img.copy()
             img_localised = cv2.polylines(img_localised, [np.int32(projected)], isClosed=True, color=(0, 255, 0), thickness=3)
 
-            st.subheader("📍 Zone localisée dans le document")
+            st.subheader("Zone localisée dans le document")
             st.image(cv2.cvtColor(img_localised, cv2.COLOR_BGR2RGB))
         else:
-            st.warning("⚠️ Pas assez de bons matchs pour estimer une homographie.")
+            st.warning("Pas assez de bons matchs pour estimer une homographie.")
 
 if __name__ == "__main__":
     main()
+
