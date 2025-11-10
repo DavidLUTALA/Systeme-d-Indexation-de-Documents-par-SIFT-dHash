@@ -1,4 +1,4 @@
-# Indexation_Contenu_Multim-dia
+# Indexation_Contenu_Multimedia
 # 📄🔍 Système d'Indexation de Documents par SIFT + dHash
 
 Ce projet présente une application permettant de rechercher automatiquement un document à partir d’une vidéo contenant une portion de texte de ce document(image).  
